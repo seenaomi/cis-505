@@ -69,19 +69,19 @@ public class UseFans  {//starting with code from Module 1 from the SeeFan class
 
     public void DisplayFansFunctionality(Set<UseFans> fans) {
         for(UseFans f : fans) {
-            if(this.getOn()) {
-                System.out.println("\nOh hello. \nLooks like the fan is currently on, moving at a speed of " + this.getSpeed() + " hundred rpms. \nThe fan's blade radius is: " + f.getRadius() + " inches. \nThe fan's color is: " + f.getColor() +  ".\n");
+            if(f.on) {
+                System.out.println("\nOh hello. \nLooks like the fan is currently on, moving at a speed of " + f.speed + " hundred rpms. \nThe fan's blade radius is: " + f.radius + " inches. \nThe fan's color is: " + f.color +  ".\n");
             } else {
-                System.out.println("\nGood day. \nLooks like the fan is currently off, resulting in a speed of " + this.getSpeed() + " rpms. \nThe fan's blade radius is: " + f.getRadius() + " inches. \nThe fan's color is: " + f.getColor() +  ".\n");
+                System.out.println("\nGood day. \nLooks like the fan is currently off, resulting in a speed of " + f.speed + " rpms. \nThe fan's blade radius is: " + f.radius + " inches. \nThe fan's color is: " + f.color +  ".\n");
             }
         }
     }
 
     public void DisplayFanFunctionality(UseFans fan) {
-            if(this.getOn()) {
-                System.out.println("\nOh hello. \nLooks like the fan is currently on, moving at a speed of " + this.getSpeed() + " hundred rpms. \nThe fan's blade radius is: " + this.getRadius() + " inches. \nThe fan's color is: " + this.getColor() +  ".\n");
+            if(this.on) {
+                System.out.println("\nOh hello. \nLooks like the fan is currently on, moving at a speed of " + this.speed + " hundred rpms. \nThe fan's blade radius is: " + this.radius + " inches. \nThe fan's color is: " + this.color +  ".\n");
             } else {
-                System.out.println("\nGood day. \nLooks like the fan is currently off, resulting in a speed of " + this.getSpeed() + " rpms. \nThe fan's blade radius is: " + this.getRadius() + " inches. \nThe fan's color is: " + this.getColor() +  ".\n");
+                System.out.println("\nGood day. \nLooks like the fan is currently off, resulting in a speed of " + this.speed + " rpms. \nThe fan's blade radius is: " + this.radius + " inches. \nThe fan's color is: " + this.color +  ".\n");
             }
     }
 
