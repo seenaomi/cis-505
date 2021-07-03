@@ -39,15 +39,14 @@ public class SeeExceptionTest {
 
         // Attempt printing the element in a try/catch format which will result in the element being displayed
         try {
-            String plant = plantList.stream()
+            plantList.stream()
             .filter(p -> p.equals(seeAgain))
             .findAny()
             .orElseThrow(Exception::new);
-            System.out.println("Here's another look at " + plant);
+            System.out.println("Here's another look at " + seeAgain);
         } catch(Exception e) { // If the element value received is invalid, display a message that an Exception has been throw displaying “Out of Bounds.”
-            System.out.println("Out of Bounds.");
-           }
-           
+            System.out.println("An exception has occurred. The value " + seeAgain + " is out of bounds.");
+        }
         input.close();
     } //end main
 } //end SeeExceptionTest class
