@@ -52,7 +52,7 @@ public class SeeFutureValueApp extends Application {
         Label lblInterestRateFormat = new Label("Enter 11.1% as 11.1");
         lblInterestRateFormat.setTextFill(Color.RED);
         GridPane.setHalignment(lblInterestRateFormat, HPos.RIGHT);
-        pane.add(lblInterestRate, 1, 3);
+        pane.add(lblInterestRateFormat, 1, 3);
 
         Label lblYears = new Label("Years: ");
         pane.add(lblYears, 0, 5);
