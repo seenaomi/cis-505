@@ -6,6 +6,9 @@ Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Modified by N. See 2021
 */
 
+import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -34,6 +37,10 @@ public class SeeEnhancedFutureValueApp extends Application {
     private Button btnClear = new Button("Clear");
     private TextArea txtArea = new TextArea();
     private Label title = new Label("See Future Value App");
+    private Label lblFutureValueDate = new Label();
+    private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+    private Date today = Calendar.getInstance().getTime(); 
+    private String currentDate = df.format(today);
 
     @Override
     public void start(Stage primaryStage) throws Exception { 
@@ -47,27 +54,30 @@ public class SeeEnhancedFutureValueApp extends Application {
         pane.setPadding(new Insets(11.5, 12.5, 13.5, 14.5));
         pane.setHgap(5.5);
         pane.setVgap(5.5);
-
+        
         /**
          * Add the controls to the GridPane. For the lblInterestRateFormat label, set the text fill to red and HPos to the right
          */
-        
-        pane.add(lblMonthlyPayment, 0, 1);
 
-        pane.add(txtMonthlyPayment, 1, 1);
+        pane.add(lblMonthlyPayment, 0, 0);
 
-        pane.add(lblInterestRate, 0, 2);
+        pane.add(txtMonthlyPayment, 1, 0);
 
-        pane.add(txtInterestRate, 1, 2);
+        pane.add(lblInterestRate, 0, 1);
+
+        pane.add(txtInterestRate, 1, 1);
 
         lblInterestRateFormat.setTextFill(Color.RED);
         GridPane.setHalignment(lblInterestRateFormat, HPos.RIGHT);
-        pane.add(lblInterestRateFormat, 1, 3);
+        pane.add(lblInterestRateFormat, 1, 2);
 
-        pane.add(lblYears, 0, 5);
+        pane.add(lblYears, 0, 3);
 
         intYears.setMinWidth(200);
-        pane.add(intYears, 1, 5);
+        pane.add(intYears, 1, 3);
+
+        intYears.setPromptText("0");
+        intYears.getItems().addAll(1,2,3,4,5);
 
         /**
          * Add the clear and calculate buttons to an HBox with a spacing of 10 and a padding of 15, 0, 15, and 30
@@ -79,18 +89,28 @@ public class SeeEnhancedFutureValueApp extends Application {
         actionBtnContainer.getChildren().add(btnClear);
         actionBtnContainer.getChildren().add(btnCalculate);
         actionBtnContainer.setAlignment(Pos.CENTER_RIGHT);
-        pane.add(actionBtnContainer, 1, 6);
+        pane.add(actionBtnContainer, 1, 4);
 
-        double prefWidth = 1.0;
-        double prefHeight = 1.0;
-        txtArea.setPrefSize(prefWidth, prefHeight);
-        pane.add(txtArea, 1, 8);
+        pane.add(lblFutureValueDate, 0, 5);
 
-        Scene scene = new Scene(pane, 350, 300);
+        pane.add(txtArea, 0, 6);
+
+        Scene scene = new Scene(pane, 500, 300);
         primaryStage.setScene(scene);
         primaryStage.setTitle(title.getText()); //Set the primary stages title to “YourLastName Future Value App.”
         primaryStage.show();
+
+        btnCalculate.setOnAction(e -> calculateResults());
+        btnClear.setOnAction(e -> clearFormFields());
     }// end start
+
+    private void clearFormFields() {
+        txtMonthlyPayment.setText("");
+        txtInterestRate.setText("");
+        lblFutureValueDate.setText("");
+        txtArea.setText("");
+        intYears.setPromptText("0");
+    }
 
     private void calculateResults() {
         Double monthlyPayment = Double.parseDouble(txtMonthlyPayment.getText());
@@ -98,9 +118,11 @@ public class SeeEnhancedFutureValueApp extends Application {
         Integer years = intYears.getValue();
 
         double futureValue = FinanceCalculator.calculateFutureValue(monthlyPayment,rate,years);
-    	txtArea.setText("The future value is $" + Double.toString(futureValue));
+        lblFutureValueDate.setText("Calculation as of " + currentDate);
+    	txtArea.setText("The future value is $" + futureValue);
+        txtMonthlyPayment.setText(Double.toString(monthlyPayment));
+        txtInterestRate.setText(Double.toString(rate));
     } 
-
 
     // Main method
     public static void main(String[] args) {
