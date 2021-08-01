@@ -59,7 +59,7 @@ public class SeeGradeBookApp extends Application {
         pane.setVgap(5.5);
 
 
-        // Add labels, fields, buttons, and textarea
+        // Add labels, fields, buttons, textarea, and controls
         
         pane.add(lblFirstName, 0,1);
 
@@ -78,8 +78,6 @@ public class SeeGradeBookApp extends Application {
         strGrade.setMaxWidth(200);
         pane.add(strGrade, 1, 5);
 
-        // Add controls
-
         strGrade.getItems().addAll("- Select a Grade - ", "A", "B", "C", "D", "F");
         strGrade.setValue("- Select a Grade - ");
 
@@ -89,7 +87,7 @@ public class SeeGradeBookApp extends Application {
         actionBtnContainer.getChildren().add(btnClear);
         actionBtnContainer.getChildren().add(btnSave);
         actionBtnContainer.getChildren().add(btnView);
-        actionBtnContainer.setAlignment(Pos.CENTER);
+        actionBtnContainer.setAlignment(Pos.CENTER_RIGHT);
         pane.add(actionBtnContainer, 1, 6);
 
         txtArea.setMaxWidth(200);
