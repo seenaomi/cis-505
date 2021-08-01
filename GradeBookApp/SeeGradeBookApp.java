@@ -32,11 +32,11 @@ public class SeeGradeBookApp extends Application {
     private Label lblFirstName= new Label("First Name: ");
     private TextField txtFirstName = new TextField();
     private Label lblLastName= new Label("Last Name: ");
-	private TextField txtLastName = new TextField();
+    private TextField txtLastName = new TextField();
     private Label lblCourseName= new Label("Course Name: ");
-	private TextField txtCourseName = new TextField();
+    private TextField txtCourseName = new TextField();
     private Label lblGrade= new Label("Course Grade: ");
-	private ComboBox<String> strGrade =new ComboBox<String>(); 
+    private ComboBox<String> strGrade =new ComboBox<String>(); 
     private Button btnClear = new Button("Clear");
     private Button btnSave = new Button("Save");
     private Button btnView = new Button("View");
