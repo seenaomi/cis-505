@@ -6,15 +6,25 @@ Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
 Modified by N. See 2021
 */
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import GradeBookApp.Models.Student;
+import GradeBookApp.Services.StudentService;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -29,14 +39,14 @@ public class SeeGradeBookApp extends Application {
        Use labels to identify the forms fields.
     */
     
-    private Label lblFirstName= new Label("First Name: ");
+    private Label lblFirstName = new Label("First Name: ");
     private TextField txtFirstName = new TextField();
     private Label lblLastName= new Label("Last Name: ");
     private TextField txtLastName = new TextField();
-    private Label lblCourseName= new Label("Course Name: ");
+    private Label lblCourseName = new Label("Course Name: ");
     private TextField txtCourseName = new TextField();
-    private Label lblGrade= new Label("Course Grade: ");
-    private ComboBox<String> strGrade =new ComboBox<String>(); 
+    private Label lblGrade = new Label("Course Grade: ");
+    private ComboBox<String> strGrade = new ComboBox<String>(); 
     private Button btnClear = new Button("Clear");
     private Button btnSave = new Button("Save");
     private Button btnView = new Button("View");
@@ -75,7 +85,7 @@ public class SeeGradeBookApp extends Application {
         
         pane.add(lblGrade, 0, 5);
              
-        strGrade.setMaxWidth(200);
+        strGrade.setMaxWidth(400);
         pane.add(strGrade, 1, 5);
 
         strGrade.getItems().addAll("- Select a Grade - ", "A", "B", "C", "D", "F");
@@ -90,10 +100,11 @@ public class SeeGradeBookApp extends Application {
         actionBtnContainer.setAlignment(Pos.CENTER_RIGHT);
         pane.add(actionBtnContainer, 1, 6);
 
-        txtArea.setMaxWidth(200);
+        txtArea.setMaxWidth(400);
         pane.add(txtArea, 1, 7);
 
-        Scene scene = new Scene(pane, 325, 400);
+        Scene scene = new Scene(pane, 525, 400);
+        scene.getRoot().setStyle("-fx-font-family: 'serif'");
         primaryStage.setScene(scene);
         primaryStage.setTitle(title.getText()); //Set the primary stages title to “Grade Book App.”
         primaryStage.show();
@@ -112,15 +123,34 @@ public class SeeGradeBookApp extends Application {
     } // end clearFormFields method
 
     private void saveResults() {
-
-        // TODO add event handling for btnSave
-
+        if(txtFirstName.getText().isBlank() || txtLastName.getText().isBlank() || txtCourseName.getText().isBlank() || strGrade.getValue().isBlank()) {
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("Student record information is missing or incorrect. Try again.");
+            a.getDialogPane().setStyle("-fx-font-family: 'serif'");
+            a.show();
+        } else {
+            Random rand = new Random();
+            int rand_int = rand.nextInt(1000);
+            String stuId = String.valueOf(rand_int);  
+            Student stu = new Student(txtFirstName.getText(),txtLastName.getText(),txtCourseName.getText(),strGrade.getValue(),stuId);
+            StudentService.saveStudentRecord(stu);
+            clearFormFields();
+        }
     } // end saveResults method
 
-    private void viewResults() {
-
-        // TODO add event handling for btnView
-
+    private void viewResults() {        
+        List<Student> stu = new ArrayList<Student>();
+        try {
+            stu = StudentService.viewAllStudents();
+            String tmp = "";
+            for (Student list : stu) {
+                tmp = tmp + list.toString();
+            }
+            txtArea.setText(tmp);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     } // end viewResults method
     
      // Main method
