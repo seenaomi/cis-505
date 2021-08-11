@@ -138,18 +138,21 @@ public class SeeGradeBookApp extends Application {
         }
     } // end saveResults method
 
-    private void viewResults() {        
+    private void viewResults() {   
+        txtArea.clear();     
         List<Student> stu = new ArrayList<Student>();
         try {
             stu = StudentService.viewAllStudents();
-            String tmp = "";
             for (Student list : stu) {
-                tmp = tmp + list.toString();
+                txtArea.appendText(list.toString());
             }
-            txtArea.setText(tmp);
         }
         catch (IOException e) {
             e.printStackTrace();
+            Alert a = new Alert(AlertType.ERROR);
+            a.setContentText("There are no records currently. Please save records to view.");
+            a.getDialogPane().setStyle("-fx-font-family: 'serif'");
+            a.show();
         }
     } // end viewResults method
     

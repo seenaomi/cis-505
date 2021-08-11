@@ -14,26 +14,20 @@ public class StudentService {
 
     private static File file = new File("GradeBookApp/grades.csv"); // determine file save location and name
 
+    public StudentService() throws IOException {
+        if(!file.exists()) {
+            createStudentRecordFile();
+        }
+    } // end conductor
+
     public static void saveStudentRecord(Student stu) {
-        boolean fileExists;
-        String fileHeader = "FirstName,LastName,CourseName,Grade,StudentId";
         String lineSeparator = System.getProperty("line.separator");
         String newStudent = stu.getFirstName() + "," + stu.getLastName() + "," + stu.getCourseName() + "," + stu.getGrade() + "," + stu.getStudentId();
-        try {
-            fileExists = file.createNewFile();
-            if (fileExists) {
-                try (FileWriter writer = new FileWriter(file, true)) {
-                    writer.write(fileHeader + lineSeparator + newStudent);
-                    writer.close();
-                }
-            } else {
-                try (FileWriter writer = new FileWriter(file, true)) {
+
+        try (FileWriter writer = new FileWriter(file, true)) {
                     writer.write(lineSeparator + newStudent);
                     writer.close();
-                }
             }
-
-        } 
         catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,5 +50,13 @@ public class StudentService {
         }
 
     }// end viewAllStudents
+
+    private void createStudentRecordFile() throws IOException {
+        file.createNewFile();
+        try (FileWriter writer = new FileWriter(file, true)) {
+            writer.write("FirstName,LastName,CourseName,Grade,StudentId");
+            writer.close();
+        }
+    }// end createStudentRecordFile
 
 }
